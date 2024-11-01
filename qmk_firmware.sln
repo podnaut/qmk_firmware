@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{5BB0C2B4-3ECF-4492-ABBF-2DA1C5083BC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lufa", "lufa", "{D94A4AB5-936F-4DB5-85B1-164EC3921A41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{31FE05CD-78EE-4E0B-B88D-07869C7B8AD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LEDNotifier", "LEDNotifier", "{F93754A6-4198-43A9-9C58-162C5BD832B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUMonitor", "lib\lufa\Projects\LEDNotifier\CPUUsageApp\CPUMonitor.csproj", "{C8117217-F673-444E-B8FE-19E202A851BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LEDMixer", "lib\lufa\Projects\LEDNotifier\LEDMixerApp\LEDMixer.csproj", "{43EB025B-AF4B-45ED-B8E0-2BB5BE9A3360}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TempDataLogger", "TempDataLogger", "{B441FC18-1A93-4E66-8DD6-9A5C7D179CE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempLoggerHostApp", "lib\lufa\Projects\TempDataLogger\TempLogHostApp\TempLoggerHostApp.csproj", "{E71A979E-0056-441E-8A16-E1512D4DBB40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8117217-F673-444E-B8FE-19E202A851BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8117217-F673-444E-B8FE-19E202A851BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8117217-F673-444E-B8FE-19E202A851BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8117217-F673-444E-B8FE-19E202A851BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43EB025B-AF4B-45ED-B8E0-2BB5BE9A3360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43EB025B-AF4B-45ED-B8E0-2BB5BE9A3360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43EB025B-AF4B-45ED-B8E0-2BB5BE9A3360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43EB025B-AF4B-45ED-B8E0-2BB5BE9A3360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E71A979E-0056-441E-8A16-E1512D4DBB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E71A979E-0056-441E-8A16-E1512D4DBB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E71A979E-0056-441E-8A16-E1512D4DBB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E71A979E-0056-441E-8A16-E1512D4DBB40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D94A4AB5-936F-4DB5-85B1-164EC3921A41} = {5BB0C2B4-3ECF-4492-ABBF-2DA1C5083BC7}
+		{31FE05CD-78EE-4E0B-B88D-07869C7B8AD0} = {D94A4AB5-936F-4DB5-85B1-164EC3921A41}
+		{F93754A6-4198-43A9-9C58-162C5BD832B6} = {31FE05CD-78EE-4E0B-B88D-07869C7B8AD0}
+		{C8117217-F673-444E-B8FE-19E202A851BA} = {F93754A6-4198-43A9-9C58-162C5BD832B6}
+		{43EB025B-AF4B-45ED-B8E0-2BB5BE9A3360} = {F93754A6-4198-43A9-9C58-162C5BD832B6}
+		{B441FC18-1A93-4E66-8DD6-9A5C7D179CE6} = {31FE05CD-78EE-4E0B-B88D-07869C7B8AD0}
+		{E71A979E-0056-441E-8A16-E1512D4DBB40} = {B441FC18-1A93-4E66-8DD6-9A5C7D179CE6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C85C108C-AFF1-4359-96B7-4FA9D1335C41}
+	EndGlobalSection
+EndGlobal
