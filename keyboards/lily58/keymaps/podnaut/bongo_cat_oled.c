@@ -25,9 +25,6 @@ static void render_status(void) {
     oled_write(wpm_str, false);
     oled_write_P(PSTR("   WPM"), false);
 
-    /*if (gui_on) oled_write_P(PSTR("\n       "), false);
-    else oled_write_P(PSTR("\n      GUI   OFF"), false);*/
-
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.caps_lock ? PSTR("\n      CAPS LOCK") : PSTR("\n       "), false);
     oled_write_P(PSTR("\n      LAYER "), false);

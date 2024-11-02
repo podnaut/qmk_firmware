@@ -66,6 +66,7 @@ enum layers {
 
 // Other layer shortcuts.
 #define LAYERS MO(_LAYERS)
+//#define KTTOGG TG(_KTIMER)
 #define GM0TOG TG(_GMLAY0)
 #define GM1TOG TG(_GMLAY1)
 #define GM2SPC LT(_GMLAY2, KC_SPC)
@@ -81,9 +82,11 @@ enum layers {
 
 enum custom_keycodes {
     CTLDEL = SAFE_RANGE,
-    KTIMER,
-    KTIMEP,
-    KTIMEM,
+    KTSTRT,
+    KTPLUS,
+    KTMINS,
+    KTPRNT,
+    KTTOGG,
 };
 
 // Tap dances----------------------------------------------------------------------------------------------------------------------------------------
@@ -283,19 +286,19 @@ Layouts and layers: ============================================================
 // Layer navigation layer.
 // clang-format off
 #define LAYERS_3x10_4                                                                                           \
-     KTIMER, _______, _______, _______, _______,                    GM0TOG,  MD0TOG, _______, _______, _______, \
+     KTTOGG, _______, _______, _______, _______,                    GM0TOG,  MD0TOG, _______, _______, _______, \
     _______, _______, _______, _______, _______,                    GM1TOG, _______, _______, _______, _______, \
     _______, _______, _______, _______, QK_BOOT,                   _______, _______, _______, _______, _______, \
-                                         KTIMEM, _______, _______,  KTIMEP                                      \
+                                         KTMINS, _______, _______,  KTPLUS                                      \
 // clang-format on
 
 // Key timer layer.
 // clang-format off
 #define KTIMER_3x10_4                                                                                           \
+     KTTOGG, ___x___, ___x___, ___x___, ___x___,                   ___x___, ___x___, ___x___, ___x___, ___x___, \
     ___x___, ___x___, ___x___, ___x___, ___x___,                   ___x___, ___x___, ___x___, ___x___, ___x___, \
     ___x___, ___x___, ___x___, ___x___, ___x___,                   ___x___, ___x___, ___x___, ___x___, ___x___, \
-    ___x___, ___x___, ___x___, ___x___, ___x___,                   ___x___, ___x___, ___x___, ___x___, ___x___, \
-                                         KTIMEM,  KTIMER,  KTIMER,  KTIMEP                                      \
+                                         KTMINS,  KTPRNT,  KTSTRT,  KTPLUS                                      \
 // clang-format on
 
 // Gaming Layers------------------------------------------------------------------------------------------------------------------------------------
@@ -456,51 +459,71 @@ Timer function==================================================================
 
 static uint32_t key_timer = 0;
 static bool ktimer_on = false;
-int ktimer_hours_int = 0;
-int ktimer_minutes_int = 0;
-int ktimer_seconds_int = 0;
-char ktimer_hours_char[5];
-char ktimer_minutes_char[5];
-char ktimer_seconds_char[5];
+int KTSTRT_hours_int = 0;
+int KTSTRT_minutes_int = 0;
+int KTSTRT_seconds_int = 0;
+char KTSTRT_hours_char[5];
+char KTSTRT_minutes_char[5];
+char KTSTRT_seconds_char[5];
 
 void matrix_scan_user(void) {
     if (timer_elapsed32(key_timer) > 1000) {
         key_timer = timer_read32();
 
         if (ktimer_on) {
-            if (ktimer_seconds_int>0){
-                ktimer_seconds_int--;
-            } else if (ktimer_minutes_int>0){
-                ktimer_seconds_int=60;
-                ktimer_minutes_int--;
-            } else if (ktimer_hours_int>0){
-                ktimer_minutes_int=60;
-                ktimer_hours_int--;
-            } else if (ktimer_seconds_int <= 0 && ktimer_minutes_int <= 0 && ktimer_hours_int <= 0 ){
+            tap_code16(KC_BTN1);
+
+            if (KTSTRT_seconds_int>0){
+                KTSTRT_seconds_int--;
+            } else if (KTSTRT_minutes_int>0){
+                KTSTRT_seconds_int=60;
+                KTSTRT_minutes_int--;
+            } else if (KTSTRT_hours_int>0){
+                KTSTRT_minutes_int=60;
+                KTSTRT_hours_int--;
+            } else if (KTSTRT_seconds_int <= 0 && KTSTRT_minutes_int <= 0 && KTSTRT_hours_int <= 0 ){
                 ktimer_on=false;
                 layer_off(_KTIMER);
 
                 return;
             }
 
-            itoa(ktimer_hours_int, ktimer_hours_char, 10);
-            itoa(ktimer_minutes_int, ktimer_minutes_char, 10);
-            itoa(ktimer_seconds_int, ktimer_seconds_char, 10);
 
-            tap_code16(LCTL(KC_A));
-            tap_code(KC_BSPC);
-
-            SEND_STRING("Time Remaining");
-            SEND_STRING("\n");
-            send_string(ktimer_hours_char);
-            SEND_STRING(":");
-            send_string(ktimer_minutes_char);
-            SEND_STRING(":");
-            send_string(ktimer_seconds_char);
         }
     }
 };
 
+void print_timer(void) {
+    itoa(KTSTRT_hours_int, KTSTRT_hours_char, 10);
+    itoa(KTSTRT_minutes_int, KTSTRT_minutes_char, 10);
+    itoa(KTSTRT_seconds_int, KTSTRT_seconds_char, 10);
+
+    tap_code16(LCTL(KC_A));
+    tap_code(KC_BSPC);
+
+    SEND_STRING("Time Remaining");
+    SEND_STRING("\n");
+
+    if(KTSTRT_hours_int <= 9){
+        SEND_STRING("0");
+    }
+
+    send_string(KTSTRT_hours_char);
+    SEND_STRING(":");
+
+    if(KTSTRT_minutes_int <= 9){
+        SEND_STRING("0");
+    }
+
+    send_string(KTSTRT_minutes_char);
+    SEND_STRING(":");
+
+    if(KTSTRT_seconds_int <= 9){
+        SEND_STRING("0");
+    }
+
+    send_string(KTSTRT_seconds_char);
+}
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
 Custom keycode behaviors=============================================================================================================================
 ---------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -534,30 +557,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
             return false;
 
-        case KTIMER:
+        case KTTOGG:
+            if (record->event.pressed) {
+                if(KTSTRT_seconds_int <= 0 && KTSTRT_minutes_int <= 0 && KTSTRT_hours_int <= 0 ){
+                    KTSTRT_hours_int = 4;
+                }
+
+                layer_invert(_KTIMER);
+            }
+
+            return false;
+
+        case KTSTRT:
             if (record->event.pressed) {
                 ktimer_on = !ktimer_on;
-            } else {
-                if (ktimer_on){
-                    ktimer_hours_int = 4;
-                    layer_on(_KTIMER);
+            }
+
+            return false;
+
+        case KTPLUS:
+            if (record->event.pressed) {
+                if (KTSTRT_hours_int > 0 || KTSTRT_minutes_int >= 50){
+                    KTSTRT_hours_int++;
                 } else {
+                    KTSTRT_minutes_int=KTSTRT_minutes_int+10;
+                }
+            }
+
+            return false;
+
+        case KTMINS:
+            if (record->event.pressed) {
+                if (KTSTRT_hours_int > 0){
+                    if (KTSTRT_hours_int == 1){
+                        KTSTRT_minutes_int = 50;
+                    }
+
+                    KTSTRT_hours_int--;
+                } else if (KTSTRT_minutes_int >= 10) {
+                    KTSTRT_minutes_int=KTSTRT_minutes_int-10;
+                } else {
+                    ktimer_on=false;
                     layer_off(_KTIMER);
                 }
             }
 
             return false;
 
-        case KTIMEP:
+        case KTPRNT:
             if (record->event.pressed) {
-                ktimer_hours_int++;
-            }
-
-            return false;
-
-        case KTIMEM:
-            if (record->event.pressed) {
-                ktimer_hours_int--;
+                print_timer();
             }
 
             return false;
