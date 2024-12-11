@@ -137,6 +137,7 @@ void dance_end_finished (tap_dance_state_t *state, void *user_data) {
 };
 
 void dance_end_reset (tap_dance_state_t *state, void *user_data) {
+
     switch (state->count) {
         case 1:
             unregister_code(KC_LCTL);
@@ -561,6 +562,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             if (record->event.pressed) {
                 if(KTSTRT_seconds_int <= 0 && KTSTRT_minutes_int <= 0 && KTSTRT_hours_int <= 0 ){
                     KTSTRT_hours_int = 4;
+                }
+
+                if(ktimer_on){
+                    ktimer_on = !ktimer_on;
                 }
 
                 layer_invert(_KTIMER);
