@@ -20,6 +20,10 @@
 #include "quantum.h"
 #include "features/custom_shift_keys.h"
 
+#ifdef CREDS
+    #include "creds.c"
+#endif
+
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
 Definitions, enumerations, and custom functions======================================================================================================
 ---------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -87,6 +91,21 @@ enum custom_keycodes {
     KTMINS,
     KTPRNT,
     KTTOGG,
+    SLLINE,
+    DLLINE,
+    CTLINE,
+    SLWORD,
+    //PRKMAP,
+
+    #ifdef CREDS
+        PBPASS,
+        PPEMAI,
+        PWEMAI,
+        PPPHON,
+        PWPHON,
+        PADDRE,
+        PFNAME,
+    #endif
 };
 
 // Tap dances----------------------------------------------------------------------------------------------------------------------------------------
@@ -288,8 +307,8 @@ Layouts and layers: ============================================================
 // clang-format off
 #define LAYERS_3x10_4                                                                                           \
      KTTOGG, _______, _______, _______, _______,                    GM0TOG,  MD0TOG, _______, _______, _______, \
-    _______, _______, _______, _______, _______,                    GM1TOG, _______, _______, _______, _______, \
-    _______, _______, _______, _______, QK_BOOT,                   _______, _______, _______, _______, _______, \
+     PADDRE,  PPEMAI,  PPPHON,  PBPASS,  PWEMAI,                    GM1TOG, _______, _______, _______, _______, \
+     SLLINE,  CTLINE,  DLLINE,  SLWORD, _______,                   QK_BOOT, _______, _______, _______, _______, \
                                          KTMINS, _______, _______,  KTPLUS                                      \
 // clang-format on
 
@@ -560,12 +579,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
         case KTTOGG:
             if (record->event.pressed) {
+                ktimer_on = false;
+
                 if(KTSTRT_seconds_int <= 0 && KTSTRT_minutes_int <= 0 && KTSTRT_hours_int <= 0 ){
                     KTSTRT_hours_int = 4;
-                }
-
-                if(ktimer_on){
-                    ktimer_on = !ktimer_on;
                 }
 
                 layer_invert(_KTIMER);
@@ -615,6 +632,98 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             }
 
             return false;
+
+        case SLLINE:
+            if (record->event.pressed) {
+                tap_code(KC_HOME);
+                tap_code16(LSFT(KC_END));
+            }
+
+            return false;
+
+        case DLLINE:
+            if (record->event.pressed) {
+                tap_code(KC_HOME);
+                tap_code16(LSFT(KC_END));
+                tap_code(KC_BSPC);
+            }
+
+            return false;
+
+        case CTLINE:
+            if (record->event.pressed) {
+                tap_code(KC_HOME);
+                tap_code16(LSFT(KC_END));
+                tap_code16(LCTL(KC_X));
+            }
+
+            return false;
+
+        case SLWORD:
+            if (record->event.pressed) {
+                tap_code16(LCTL(KC_LEFT));
+                tap_code16(LSFT(LCTL(KC_RIGHT)));
+            }
+
+            return false;
+
+/*        case PRKMAP:
+            if (record->event.pressed) {
+                send_string(keymap_string);
+            }
+
+            return false;*/
+
+        #ifdef CREDS
+            case PBPASS:
+                if (record->event.pressed) {
+                    send_string(pass_string);
+                }
+
+                return false;
+
+            case PPEMAI:
+                if (record->event.pressed) {
+                    send_string(personal_email);
+                }
+
+                return false;
+
+            case PWEMAI:
+                if (record->event.pressed) {
+                    send_string(work_email);
+                }
+
+                return false;
+
+            case PPPHON:
+                if (record->event.pressed) {
+                    send_string(personal_phone);
+                }
+
+                return false;
+
+            case PWPHON:
+                if (record->event.pressed) {
+                    send_string(work_phone);
+                }
+
+                return false;
+
+            case PADDRE:
+                if (record->event.pressed) {
+                    send_string(address);
+                }
+
+                return false;
+
+            case PFNAME:
+                if (record->event.pressed) {
+                    send_string(full_name);
+                }
+
+                return false;
+        #endif //CREDS
     }
 
     return true;

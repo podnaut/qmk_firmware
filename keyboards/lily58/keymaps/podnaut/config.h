@@ -25,3 +25,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_WPM_ENABLE // Enable split WPM calculation
 #define SPLIT_OLED_ENABLE// Enable split OLED
 #define TAPPING_TERM_PER_KEY
+#define CREDS
