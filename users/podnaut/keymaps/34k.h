@@ -45,9 +45,18 @@ enum layers {
     _GMLAY0,
     _GMLAY1,
     _GMLAY2,
+
+#ifdef RTSGAMING
     _GMLAY3,
+    _GMLAY4,
+    _GMLAY5,
+#endif
+
     _LAYERS,
+
+#ifdef KEYTIMER
     _KTIMER,
+#endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
     _MSAUTO,
@@ -72,10 +81,10 @@ enum layers {
 #define LAYERS MO(_LAYERS)
 //#define KTTOGG TG(_KTIMER)
 #define GM0TOG TG(_GMLAY0)
-#define GM1TOG TG(_GMLAY1)
-#define GM2SPC LT(_GMLAY2, KC_SPC)
-#define GM2ENT LT(_GMLAY2, KC_ENT)
-#define GM3ENT LT(_GMLAY3, KC_ENT)
+#define GM3TOG TG(_GMLAY3)
+#define GM4SPC LT(_GMLAY4, KC_SPC)
+#define GM4ENT LT(_GMLAY4, KC_ENT)
+#define GM5ENT LT(_GMLAY5, KC_ENT)
 
 /*
 #define GM3MON MO(_GMLAY3)
@@ -95,6 +104,7 @@ enum custom_keycodes {
     DLLINE,
     CTLINE,
     SLWORD,
+    GCHATE,
     //PRKMAP,
 
     #ifdef CREDS
@@ -177,6 +187,90 @@ void esc_alt_tab(tap_dance_state_t *state, void *user_data) {
     }
 };
 
+void dance_ctl_num_finished (tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            register_code(KC_LCTL);
+            break;
+        case 2:
+            layer_on(_GMLAY1);
+    }
+};
+
+void dance_ctl_num_reset (tap_dance_state_t *state, void *user_data) {
+
+    switch (state->count) {
+        case 1:
+            unregister_code(KC_LCTL);
+            break;
+        case 2:
+            layer_off(_GMLAY1);
+    }
+};
+
+void r_t_finished (tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            register_code(KC_R);
+            break;
+        case 2:
+            register_code(KC_T);
+    }
+};
+
+void r_t_reset (tap_dance_state_t *state, void *user_data) {
+
+    switch (state->count) {
+        case 1:
+            unregister_code(KC_R);
+            break;
+        case 2:
+            unregister_code(KC_T);
+    }
+};
+
+void f_g_finished (tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            register_code(KC_F);
+            break;
+        case 2:
+            register_code(KC_G);
+    }
+};
+
+void f_g_reset (tap_dance_state_t *state, void *user_data) {
+
+    switch (state->count) {
+        case 1:
+            unregister_code(KC_F);
+            break;
+        case 2:
+            unregister_code(KC_G);
+    }
+};
+
+void v_b_finished (tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            register_code(KC_V);
+            break;
+        case 2:
+            register_code(KC_B);
+    }
+};
+
+void v_b_reset (tap_dance_state_t *state, void *user_data) {
+
+    switch (state->count) {
+        case 1:
+            unregister_code(KC_V);
+            break;
+        case 2:
+            unregister_code(KC_B);
+    }
+};
+
 enum tap_dances {
     TD_MEDIA = 0,
     TD_QESC,
@@ -184,6 +278,10 @@ enum tap_dances {
     TD_HOMCLT,
     TD_ENDCRT,
     TD_EATAB,
+    TD_CTLNUM,
+    TD_R_T,
+    TD_F_G,
+    TD_V_B,
 };
 
 tap_dance_action_t tap_dance_actions[] = {
@@ -193,6 +291,12 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_HOMCLT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_home_finished, dance_home_reset),
     [TD_ENDCRT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end_finished, dance_end_reset),
     [TD_EATAB] = ACTION_TAP_DANCE_FN(esc_alt_tab),
+    [TD_CTLNUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ctl_num_finished, dance_ctl_num_reset),
+    [TD_R_T] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, r_t_finished, r_t_reset),
+    [TD_F_G] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, f_g_finished, f_g_reset),
+    [TD_V_B] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, v_b_finished, v_b_reset),
+
+
 };
 
 #define MEDIA TD(TD_MEDIA)
@@ -201,6 +305,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define HOMCLT TD(TD_HOMCLT)
 #define ENDCRT TD(TD_ENDCRT)
 #define EATAB TD(TD_EATAB)
+#define CTLNUM TD(TD_CTLNUM)
 
 // Custom Shift Keys---------------------------------------------------------------------------------------------------------------------------------
 
@@ -307,7 +412,7 @@ Layouts and layers: ============================================================
 // clang-format off
 #define LAYERS_3x10_4                                                                                           \
      KTTOGG, _______, _______, _______, _______,                    GM0TOG,  MD0TOG, _______, _______, _______, \
-     PADDRE,  PPEMAI,  PPPHON,  PBPASS,  PWEMAI,                    GM1TOG, _______, _______, _______, _______, \
+     PADDRE,  PPEMAI,  PPPHON,  PBPASS,  PWEMAI,                    GM3TOG, _______, _______, _______, _______, \
      SLLINE,  CTLINE,  DLLINE,  SLWORD, _______,                   QK_BOOT, _______, _______, _______, _______, \
                                          KTMINS, _______, _______,  KTPLUS                                      \
 // clang-format on
@@ -326,10 +431,28 @@ Layouts and layers: ============================================================
 // Generic gaming layout.
 // clang-format off
 #define WASD_GAMES_3x10_4                                                                                       \
-       KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,                   _______, _______, _______, _______, _______, \
-       KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,                   _______, _______, _______, _______, _______, \
-      KC_LSFT,  KC_Z,    KC_X,    KC_S,    KC_V,                   _______, _______, _______, _______,   MEDIA, \
-                                         GM2ENT,  KC_SPC, _______,  GM0TOG                                      \
+       KC_ESC,  KC_Q,    KC_W,    KC_E, TD(TD_R_T),                   _______, _______, _______, _______,   MEDIA, \
+       KC_TAB,  KC_A,    KC_S,    KC_D, TD(TD_F_G),                   _______, _______, _______, _______, _______, \
+      KC_LSFT,  KC_Z,    KC_X,    KC_C, TD(TD_V_B),                   _______, _______, _______, _______,  GCHATE, \
+                                            CTLNUM,  KC_SPC, _______,  GM0TOG                                      \
+// clang-format on
+
+// Generic gaming numbers.
+// clang-format off
+#define WASD_NUMBERS_3x10_4                                                                                       \
+      _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, \
+         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                   _______, _______, _______, _______, _______, \
+         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                   _______, _______, _______, _______, _______, \
+                                          _______, _______, _______, _______                                      \
+// clang-format on
+
+// Generic gaming chat.
+// clang-format off
+#define WASD_CHAT_3x10_4                                                                                        \
+         QESC,    KC_W,    KC_E,    KC_R,    KC_T,                    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
+         ATAB,    KC_S,    KC_D,    KC_F,    KC_G,                    KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, \
+         SFTZ,    KC_X,    KC_C,    KC_V,    KC_B,                    KC_N,    KC_M,   COMMA,  KC_DOT,  GCHATE, \
+                                          CTL_DEL, GCHATE, FN0SPC, ALT_BSP                                      \
 // clang-format on
 
 // Starcraft layout.
@@ -338,7 +461,7 @@ Layouts and layers: ============================================================
        QESC,    KC_W,    KC_E,    KC_R,    KC_T,                   _______, _______, _______, _______, _______, \
        ATAB,    KC_S,    KC_D,    KC_F,    KC_G,                   _______, _______, _______, _______, _______, \
        SFTZ,    KC_X,    KC_C,    KC_V,    KC_B,                   _______, _______, _______, _______,   MEDIA, \
-                                         GM3ENT,  GM2SPC, _______, _______                                      \
+                                         GM5ENT,  GM4SPC, _______, _______                                      \
 // clang-format on
 
 // Control group layer 1.
@@ -356,7 +479,7 @@ Layouts and layers: ============================================================
     S(KC_8), S(KC_7), S(KC_6), S(KC_5),  KC_DEL,                   _______, _______, _______, _______, _______, \
        KC_8,    KC_7,    KC_6,    KC_5,    KC_0,                   _______, _______, _______, _______, _______, \
     C(KC_8), C(KC_7), C(KC_6), C(KC_5),  KC_ESC,                   _______, _______, _______, _______, _______, \
-                                        _______, _______, _______,  GM1TOG                                      \
+                                        _______, _______, _______, _______                                      \
 // clang-format on
 
 /*
@@ -663,6 +786,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             if (record->event.pressed) {
                 tap_code16(LCTL(KC_LEFT));
                 tap_code16(LSFT(LCTL(KC_RIGHT)));
+            }
+
+            return false;
+
+        case GCHATE:
+            if (record->event.pressed) {
+                tap_code(KC_ENT);
+                layer_invert(_GMLAY2);
             }
 
             return false;
