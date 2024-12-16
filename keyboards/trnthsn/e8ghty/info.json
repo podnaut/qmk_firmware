@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 <<<<<<< HEAD:keyboards/massdrop/alt/info.json
     "keyboard_name": "ALT Keyboard",
     "manufacturer": "Massdrop Inc.",
@@ -96,6 +97,8 @@
                 {"matrix": [4, 13], "x": 14, "y": 4},
                 {"matrix": [4, 14], "x": 15, "y": 4}
 =======
+=======
+>>>>>>> 767dfbbd3f94dcddb2061cd8338dd166d985df9d
     "manufacturer": "ThanhSon.Mech",
     "keyboard_name": "E8ghty",
     "maintainer": "trnthsn",
@@ -668,7 +671,10 @@
                 {"label": "\u2190", "matrix": [5, 14], "x": 15.25, "y": 5.25},
                 {"label": "\u2193", "matrix": [5, 15], "x": 16.25, "y": 5.25},
                 {"label": "\u2192", "matrix": [5, 16], "x": 17.25, "y": 5.25}
+<<<<<<< HEAD
 >>>>>>> 847257c3c757c475eb9f47493252cc55b0e08f51:keyboards/trnthsn/e8ghty/info.json
+=======
+>>>>>>> 767dfbbd3f94dcddb2061cd8338dd166d985df9d
             ]
         }
     }

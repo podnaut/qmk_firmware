@@ -120,6 +120,9 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
+<<<<<<< HEAD
 
 # podnaut user space
 creds.txt
+=======
+>>>>>>> 767dfbbd3f94dcddb2061cd8338dd166d985df9d

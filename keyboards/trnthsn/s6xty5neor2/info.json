@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 <<<<<<< HEAD:keyboards/massdrop/ctrl/info.json
     "keyboard_name": "CTRL Keyboard",
     "manufacturer": "Massdrop Inc.",
@@ -121,6 +122,8 @@
                 {"matrix": [10, 5], "x": 16.5, "y": 5.5},
                 {"matrix": [10, 6], "x": 17.5, "y": 5.5}
 =======
+=======
+>>>>>>> 767dfbbd3f94dcddb2061cd8338dd166d985df9d
     "manufacturer": "ThanhSon.Mech",
     "keyboard_name": "S6xty5Neo Rev.2",
     "maintainer": "trnthsn",
@@ -371,7 +374,10 @@
                 {"matrix": [4, 12], "x": 13, "y": 4},
                 {"matrix": [4, 13], "x": 14, "y": 4},
                 {"matrix": [4, 14], "x": 15, "y": 4}
+<<<<<<< HEAD
 >>>>>>> 847257c3c757c475eb9f47493252cc55b0e08f51:keyboards/trnthsn/s6xty5neor2/info.json
+=======
+>>>>>>> 767dfbbd3f94dcddb2061cd8338dd166d985df9d
             ]
         }
     }

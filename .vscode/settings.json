@@ -30,6 +30,10 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
+<<<<<<< HEAD
     ],
     "dotnet.preferCSharpExtension": true
+=======
+    ]
+>>>>>>> 767dfbbd3f94dcddb2061cd8338dd166d985df9d
 }
