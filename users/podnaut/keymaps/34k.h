@@ -641,11 +641,11 @@ void print_timer(void) {
     itoa(KTSTRT_minutes_int, KTSTRT_minutes_char, 10);
     itoa(KTSTRT_seconds_int, KTSTRT_seconds_char, 10);
 
-    tap_code16(LCTL(KC_A));
-    tap_code(KC_BSPC);
+//    tap_code16(LCTL(KC_A));
+//    tap_code(KC_BSPC);
 
-    SEND_STRING("Time Remaining");
-    SEND_STRING("\n");
+    SEND_STRING("Time Remaining: ");
+//    SEND_STRING("\n");
 
     if(KTSTRT_hours_int <= 9){
         SEND_STRING("0");
@@ -874,4 +874,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 };
-
