@@ -45,13 +45,9 @@ enum layers {
     _GMLAY0,
     _GMLAY1,
     _GMLAY2,
-
-#ifdef RTSGAMING
     _GMLAY3,
     _GMLAY4,
     _GMLAY5,
-#endif
-
     _LAYERS,
 
 #ifdef KEYTIMER
@@ -644,7 +640,7 @@ void print_timer(void) {
 //    tap_code16(LCTL(KC_A));
 //    tap_code(KC_BSPC);
 
-    SEND_STRING("Time Remaining: ");
+//    SEND_STRING("Time Remaining: ");
 //    SEND_STRING("\n");
 
     if(KTSTRT_hours_int <= 9){
