@@ -407,9 +407,9 @@ Layouts and layers: ============================================================
 // Layer navigation layer.
 // clang-format off
 #define LAYERS_3x10_4                                                                                           \
-     KTTOGG, _______, _______, _______, _______,                    GM0TOG,  MD0TOG, _______, _______, _______, \
-     PADDRE,  PPEMAI,  PPPHON,  PBPASS,  PWEMAI,                    GM3TOG, _______, _______, _______, _______, \
-     SLLINE,  CTLINE,  DLLINE,  SLWORD, _______,                   QK_BOOT, _______, _______, _______, _______, \
+     KTTOGG, _______, _______, _______, _______,                    GM0TOG,  MD0TOG, RGB_TOG, RGB_MOD, _______, \
+     PADDRE,  PPEMAI,  PPPHON,  PBPASS,  PWEMAI,                    GM3TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, \
+     SLLINE,  CTLINE,  DLLINE,  SLWORD, _______,                   QK_BOOT, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD , \
                                          KTMINS, _______, _______,  KTPLUS                                      \
 // clang-format on
 
@@ -548,7 +548,7 @@ Layouts and layers: ============================================================
 // 58 key gaming layer (Lily58).
 // clang-format off
 #define GAME58_4x12_10                                                                                                               \
-     KC_TILD,   KC_1,    KC_2,    KC_3,    KC_4,     KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL, \
+     KC_TILD,   KC_1,    KC_2,    KC_3,    KC_4,     KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0, LCTL(LALT(KC_TAB)), \
       KC_ESC,   KC_Q, _______, _______, _______,  _______,                     _______, _______, _______, _______, _______, KC_BSPC, \
       KC_TAB,   KC_A, _______, _______, _______,  _______,                     _______, _______, _______, _______, _______,  KC_ENT, \
      KC_LSFT,   KC_Z, _______, _______, _______,  _______, MEDIA, TO(_ALPHAS), _______, _______, _______, _______, KC_SLSH, KC_LSFT, \

@@ -7,7 +7,7 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY; without even tFhe implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -47,5 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-
-
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_sethsv_noeeprom(HSV_WHITE); // or your preferred color
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+}
